@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todolist/TodoModel.dart';
+import 'package:todolist/models/todos.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: ChangeNotifierProvider(
-          create: (context) => TodoModel(),
+          create: (context) => Todos(),
           child: MyHomePage(),
         ));
   }
@@ -72,23 +72,23 @@ class MyHomePage extends StatelessWidget {
                       topRight: Radius.circular(50),
                       topLeft: Radius.circular(60)),
                   color: Colors.white),
-              child: Consumer<TodoModel>(
+              child: Consumer<Todos>(
                 builder: (context, todo, child) {
                   return ListView.builder(
-                      itemCount: todo.taskList.length,
+                      itemCount: todo.todoList.length,
                       itemBuilder: (context, index) {
                         return Container(
                           child: ListTile(
                             contentPadding: EdgeInsets.only(
                                 left: 32, right: 32, top: 8, bottom: 8),
                             title: Text(
-                              todo.taskList[index].title,
+                              todo.todoList[index].title,
                               style: TextStyle(
                                   color: Colors.black87,
                                   fontWeight: FontWeight.bold),
                             ),
                             subtitle: Text(
-                              todo.taskList[index].detail,
+                              todo.todoList[index].detail,
                               style: TextStyle(
                                   color: Colors.black45,
                                   fontWeight: FontWeight.bold),
@@ -111,7 +111,7 @@ class MyHomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Provider.of<TodoModel>(context).addTaskInList();
+          Provider.of<Todos>(context).addTodo();
         },
       ),
     );
